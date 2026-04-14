@@ -1,0 +1,35 @@
+{
+  "app_name": "GenUI",
+  "backend": {
+    "host": "127.0.0.1",
+    "port": 8008
+  },
+  "frontend": {
+    "dev_url": "http://127.0.0.1:5173"
+  },
+  "comfyui": {
+    "root": "C:\\StabilityMatrix\\Packages\\ComfyUI",
+    "api_url": "http://127.0.0.1:8188",
+    "output_dir": "C:\\StabilityMatrix\\Packages\\ComfyUI\\output",
+    "models": {
+      "checkpoints": "C:\\StabilityMatrix\\Packages\\ComfyUI\\models\\checkpoints",
+      "loras": "C:\\StabilityMatrix\\Packages\\ComfyUI\\models\\loras",
+      "vae": "C:\\StabilityMatrix\\Packages\\ComfyUI\\models\\vae",
+      "embeddings": "C:\\StabilityMatrix\\Packages\\ComfyUI\\models\\embeddings",
+      "controlnet": "C:\\StabilityMatrix\\Packages\\ComfyUI\\models\\controlnet",
+      "upscale_models": "C:\\StabilityMatrix\\Packages\\ComfyUI\\models\\upscale_models"
+    }
+  },
+  "paths": {
+    "logs": "C:\\My-Image-Gen-Pipeline\\logs",
+    "data": "C:\\My-Image-Gen-Pipeline\\data",
+    "presets": "C:\\My-Image-Gen-Pipeline\\config\\presets",
+    "style_blocks": "C:\\My-Image-Gen-Pipeline\\config\\style-blocks",
+    "workflows": "C:\\My-Image-Gen-Pipeline\\comfyui-workflows"
+  },
+  "safety": {
+    "safe_preview_default": false,
+    "hide_import_previews_in_main_gallery": true,
+    "blur_flagged_import_thumbnails": true
+  }
+}

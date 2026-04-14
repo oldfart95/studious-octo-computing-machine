@@ -1,0 +1,278 @@
+:root {
+  color-scheme: light;
+  --bg: #f3efe7;
+  --bg-strong: #e6dccd;
+  --panel: rgba(255, 250, 242, 0.88);
+  --panel-strong: #fff7ee;
+  --ink: #1e1d1a;
+  --muted: #60584a;
+  --line: rgba(60, 45, 18, 0.14);
+  --accent: #8d4e22;
+  --accent-strong: #633311;
+  --soft: #d8c2a0;
+  --shadow: 0 20px 50px rgba(84, 57, 20, 0.12);
+  font-family: "Segoe UI", "Aptos", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(205, 163, 107, 0.28), transparent 32%),
+    linear-gradient(180deg, #fbf7f1 0%, var(--bg) 48%, #ebe2d3 100%);
+  color: var(--ink);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 14px 80px;
+}
+
+.hero {
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 248, 238, 0.96), rgba(240, 230, 216, 0.8));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  font-size: 0.72rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 8vw, 4.2rem);
+  line-height: 0.94;
+}
+
+.lede {
+  margin: 12px 0 0;
+  color: var(--muted);
+  max-width: 55ch;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tab,
+.chip,
+.secondary,
+.cta,
+.stepper button {
+  min-height: 48px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 250, 242, 0.8);
+  color: var(--ink);
+  padding: 0 16px;
+}
+
+.tab.active,
+.chip.active,
+.cta {
+  background: linear-gradient(180deg, #a7602d, var(--accent-strong));
+  color: white;
+  border-color: transparent;
+}
+
+.panel-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.panel,
+.history-card,
+.gallery-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.panel {
+  padding: 16px;
+}
+
+.panel.primary {
+  background: linear-gradient(180deg, rgba(255, 249, 241, 0.96), rgba(248, 239, 226, 0.9));
+}
+
+.panel-header,
+.history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-header h2,
+.helper-card h3 {
+  margin: 0;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+textarea,
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 14px;
+  background: var(--panel-strong);
+  color: var(--ink);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.chip-wrap,
+.parameter-grid,
+.stack,
+.gallery-grid,
+.model-list {
+  display: grid;
+  gap: 12px;
+}
+
+.parameter-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.stepper {
+  margin-top: 0;
+}
+
+.stepper-row {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  gap: 8px;
+}
+
+.stepper input {
+  text-align: center;
+}
+
+.cta,
+.secondary {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.secondary.small {
+  width: auto;
+  min-height: 40px;
+}
+
+.helper-card {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 20px;
+  background: rgba(233, 220, 198, 0.46);
+}
+
+.helper-card p,
+.history-card p,
+.history-head p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
+.code-box {
+  font-family: Consolas, monospace;
+}
+
+.history-card {
+  padding: 16px;
+}
+
+.gallery-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 16px;
+}
+
+.gallery-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-card figcaption {
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.model-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.import-card {
+  display: grid;
+  gap: 6px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.import-card small {
+  color: var(--muted);
+}
+
+.import-models-header {
+  margin-top: 20px;
+}
+
+@media (min-width: 860px) {
+  .panel-grid {
+    grid-template-columns: 1.35fr 1fr;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .parameter-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

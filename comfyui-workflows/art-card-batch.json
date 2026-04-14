@@ -1,0 +1,81 @@
+{
+  "checkpoint_node_id": "4",
+  "positive_node_id": "6",
+  "negative_node_id": "7",
+  "latent_node_id": "10",
+  "ksampler_node_id": "12",
+  "save_node_id": "13",
+  "workflow": {
+    "4": {
+      "class_type": "CheckpointLoaderSimple",
+      "inputs": {
+        "ckpt_name": "sdxl_base_1.0.safetensors"
+      }
+    },
+    "6": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "",
+        "clip": [
+          "4",
+          1
+        ]
+      }
+    },
+    "7": {
+      "class_type": "CLIPTextEncode",
+      "inputs": {
+        "text": "",
+        "clip": [
+          "4",
+          1
+        ]
+      }
+    },
+    "10": {
+      "class_type": "EmptyLatentImage",
+      "inputs": {
+        "width": 1024,
+        "height": 1536,
+        "batch_size": 1
+      }
+    },
+    "12": {
+      "class_type": "KSampler",
+      "inputs": {
+        "seed": 1,
+        "steps": 30,
+        "cfg": 6.5,
+        "sampler_name": "euler",
+        "scheduler": "normal",
+        "denoise": 1,
+        "model": [
+          "4",
+          0
+        ],
+        "positive": [
+          "6",
+          0
+        ],
+        "negative": [
+          "7",
+          0
+        ],
+        "latent_image": [
+          "10",
+          0
+        ]
+      }
+    },
+    "13": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "filename_prefix": "GenUICard",
+        "images": [
+          "12",
+          0
+        ]
+      }
+    }
+  }
+}

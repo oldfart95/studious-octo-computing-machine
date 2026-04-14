@@ -1,0 +1,22 @@
+{
+  "name": "ritual-card",
+  "workflow_mode": "art-card-batch",
+  "checkpoint": "sdxl_base_1.0.safetensors",
+  "loras": [],
+  "positive_prefix": "ornate fantasy illustration, sacred geometry, dramatic framing",
+  "negative_prompt": "low quality, blurry, malformed anatomy, watermark, text",
+  "style_prompt": "inked filigree, rich shadows, ceremonial symbolism, controlled color accents",
+  "locked_style_blocks": [
+    "premium-fantasy-finish"
+  ],
+  "parameters": {
+    "width": 1024,
+    "height": 1536,
+    "steps": 30,
+    "cfg": 6.5,
+    "sampler": "euler",
+    "scheduler": "normal",
+    "seed": -1,
+    "batch_size": 1
+  }
+}

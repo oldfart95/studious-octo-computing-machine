@@ -1,0 +1,6 @@
+{
+  "preset": "dark-fantasy-style",
+  "prompt": "storm cathedral above a dead sea",
+  "negative_prompt": "low quality, blurry",
+  "style_prompt": "wind-torn banners, giant arches, moonlit spray"
+}

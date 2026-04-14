@@ -1,0 +1,12 @@
+[
+  {
+    "preset": "ritual-card",
+    "prompt": "cathedral engine",
+    "style_prompt": "silver glyphs and lantern haze"
+  },
+  {
+    "preset": "ritual-card",
+    "prompt": "saint of broken machinery",
+    "style_prompt": "weathered gold accents and occult drafting marks"
+  }
+]
