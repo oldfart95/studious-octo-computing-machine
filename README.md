@@ -46,9 +46,11 @@ Set-ExecutionPolicy -Scope Process Bypass
 
 This script will:
 
-- bootstrap `Stability Matrix` into `C:\StabilityMatrix` if missing
-- launch `Stability Matrix` and wait for you to install the `ComfyUI` package there
-- auto-detect the installed `ComfyUI` package path and update local config
+- open the Stability Matrix download page in your browser
+- launch Stability Matrix if it is already installed under `C:\StabilityMatrix`
+- pause and tell you to install the `ComfyUI` package in Stability Matrix
+- continue only after you come back and choose `Continue`
+- auto-detect the installed ComfyUI package path and update local config
 - create local folders
 - create a Python virtual environment
 - install backend dependencies
@@ -182,7 +184,7 @@ cd C:\My-Image-Gen-Pipeline
 .\scripts\launch.ps1
 ```
 
-If Stability Matrix is not already present, `install-first-time.ps1` now downloads the latest Windows release, launches it, and pauses while you install the `ComfyUI` package from inside Stability Matrix. Once the ComfyUI package folder appears, setup continues automatically.
+If Stability Matrix is not already present, `install-first-time.ps1` opens the download page for you. If it is already installed, it launches the app. In either case, you install the `ComfyUI` package there, come back to the terminal, and choose `Continue` to resume setup.
 
 ## Notes
 

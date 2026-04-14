@@ -2,8 +2,7 @@ $ErrorActionPreference = "Stop"
 
 param(
   [switch]$BootstrapStabilityMatrix = $true,
-  [string]$StabilityMatrixRoot = "C:\StabilityMatrix",
-  [int]$ComfyTimeoutMinutes = 30
+  [string]$StabilityMatrixRoot = "C:\StabilityMatrix"
 )
 
 $ProjectRoot = Split-Path -Parent $PSScriptRoot
@@ -91,9 +90,10 @@ $ComfyRoot = Find-ComfyUiRoot -CandidateRoots @(
 )
 
 if (-not $ComfyRoot -and $BootstrapStabilityMatrix) {
-  Write-Host "Bootstrapping Stability Matrix and waiting for ComfyUI..."
-  & $BootstrapScript -InstallRoot $StabilityMatrixRoot -WaitForComfyUI -ComfyTimeoutMinutes $ComfyTimeoutMinutes
+  Write-Host "Opening Stability Matrix handoff..."
+  & $BootstrapScript -InstallRoot $StabilityMatrixRoot -PromptForComfyUI
   $ComfyRoot = Find-ComfyUiRoot -CandidateRoots @(
+    $ConfiguredComfyRoot,
     (Join-Path $StabilityMatrixRoot "Packages\ComfyUI"),
     $StabilityMatrixRoot
   )

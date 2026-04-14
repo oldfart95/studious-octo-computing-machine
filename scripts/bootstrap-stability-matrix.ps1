@@ -2,28 +2,8 @@ $ErrorActionPreference = "Stop"
 
 param(
   [string]$InstallRoot = "C:\StabilityMatrix",
-  [switch]$WaitForComfyUI,
-  [int]$ComfyTimeoutMinutes = 30
+  [switch]$PromptForComfyUI
 )
-
-function Get-LatestReleaseAsset {
-  $release = Invoke-RestMethod -Uri "https://api.github.com/repos/LykosAI/StabilityMatrix/releases/latest"
-  $preferred = $release.assets |
-    Where-Object { $_.browser_download_url -match "win.*x64.*\.zip$" } |
-    Select-Object -First 1
-
-  if (-not $preferred) {
-    $preferred = $release.assets |
-      Where-Object { $_.browser_download_url -match "\.zip$" } |
-      Select-Object -First 1
-  }
-
-  if (-not $preferred) {
-    throw "Could not find a Windows Stability Matrix release asset."
-  }
-
-  return $preferred
-}
 
 function Find-StabilityMatrixExe {
   param(
@@ -55,40 +35,53 @@ function Find-ComfyUiRoot {
   return $null
 }
 
-New-Item -ItemType Directory -Force -Path $InstallRoot | Out-Null
+$downloadUrl = "https://github.com/LykosAI/StabilityMatrix/releases/latest"
+$docsUrl = "https://github.com/LykosAI/StabilityMatrix"
 
 $existingExe = Find-StabilityMatrixExe -Root $InstallRoot
-if (-not $existingExe) {
-  Write-Host "Downloading Stability Matrix..."
-  $asset = Get-LatestReleaseAsset
-  $archivePath = Join-Path $env:TEMP $asset.name
-  Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $archivePath
-  Write-Host "Extracting Stability Matrix to $InstallRoot ..."
-  Expand-Archive -Path $archivePath -DestinationPath $InstallRoot -Force
-  Remove-Item -LiteralPath $archivePath -Force
-  $existingExe = Find-StabilityMatrixExe -Root $InstallRoot
+Write-Host ""
+Write-Host "Stability Matrix setup handoff"
+Write-Host "1. Your browser will open the Stability Matrix download page."
+Write-Host "2. If Stability Matrix is already installed, it will be launched."
+Write-Host "3. In Stability Matrix, download and install the ComfyUI package if needed."
+Write-Host "4. Come back here and choose Continue to carry on with GenUI setup."
+Write-Host ""
+Write-Host "Download page: $downloadUrl"
+Write-Host "Project page:  $docsUrl"
+Write-Host ""
+
+Start-Process $downloadUrl | Out-Null
+
+if ($existingExe) {
+  Write-Host "Launching Stability Matrix: $($existingExe.FullName)"
+  Start-Process -FilePath $existingExe.FullName -WorkingDirectory $existingExe.DirectoryName | Out-Null
+} else {
+  Write-Host "No local Stability Matrix executable was found under $InstallRoot."
+  Write-Host "Download and install Stability Matrix from the opened page, then install ComfyUI there."
 }
 
-if (-not $existingExe) {
-  throw "Stability Matrix executable was not found after extraction."
-}
+if ($PromptForComfyUI) {
+  $choices = @(
+    (New-Object System.Management.Automation.Host.ChoiceDescription "&Continue", "Continue after ComfyUI is installed."),
+    (New-Object System.Management.Automation.Host.ChoiceDescription "&Cancel", "Stop setup for now.")
+  )
 
-Write-Host "Launching Stability Matrix: $($existingExe.FullName)"
-Start-Process -FilePath $existingExe.FullName -WorkingDirectory $existingExe.DirectoryName | Out-Null
+  $selection = $Host.UI.PromptForChoice(
+    "Continue Setup",
+    "After Stability Matrix is ready and ComfyUI has been installed, choose Continue.",
+    $choices,
+    0
+  )
 
-if ($WaitForComfyUI) {
-  Write-Host "Install the ComfyUI package in Stability Matrix now."
-  Write-Host "This script will continue automatically when the ComfyUI folder appears."
+  if ($selection -ne 0) {
+    throw "Setup paused. Re-run install-first-time.ps1 when you are ready to continue."
+  }
 
-  $deadline = (Get-Date).AddMinutes($ComfyTimeoutMinutes)
-  do {
-    Start-Sleep -Seconds 5
-    $comfyRoot = Find-ComfyUiRoot -Root $InstallRoot
-    if ($comfyRoot) {
-      Write-Host "Detected ComfyUI at $comfyRoot"
-      exit 0
-    }
-  } while ((Get-Date) -lt $deadline)
+  $comfyRoot = Find-ComfyUiRoot -Root $InstallRoot
+  if ($comfyRoot) {
+    Write-Host "Detected ComfyUI at $comfyRoot"
+    exit 0
+  }
 
-  throw "Timed out waiting for ComfyUI. Install it in Stability Matrix, then rerun the script."
+  throw "ComfyUI was not found after Continue. Install ComfyUI in Stability Matrix, then rerun the script."
 }
