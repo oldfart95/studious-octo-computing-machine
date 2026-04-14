@@ -35,7 +35,15 @@ Stability Matrix should remain the source of truth for:
 - shared model placement
 - package updates you explicitly choose to make there
 
-GenUI setup only assumes you provide the ComfyUI root path in local config.
+GenUI can now bootstrap Stability Matrix to `C:\StabilityMatrix` and wait for a ComfyUI package install, then it rewrites `config\local-config.json` to the detected ComfyUI package path.
+
+If you already use a different Stability Matrix location, either:
+
+```powershell
+.\scripts\install-first-time.ps1 -StabilityMatrixRoot "D:\StabilityMatrix"
+```
+
+or edit `config\local-config.json` manually after install.
 
 ## Upgrades
 

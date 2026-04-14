@@ -36,9 +36,8 @@ data/                    Gallery metadata, history, manifests, imports, outputs
 
 ## Install
 
-1. Install `Stability Matrix` yourself and use it to install `ComfyUI`.
-2. Clone or place this project at `C:\My-Image-Gen-Pipeline`.
-3. Run:
+1. Clone or place this project at `C:\My-Image-Gen-Pipeline`.
+2. Run:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
@@ -47,6 +46,9 @@ Set-ExecutionPolicy -Scope Process Bypass
 
 This script will:
 
+- bootstrap `Stability Matrix` into `C:\StabilityMatrix` if missing
+- launch `Stability Matrix` and wait for you to install the `ComfyUI` package there
+- auto-detect the installed `ComfyUI` package path and update local config
 - create local folders
 - create a Python virtual environment
 - install backend dependencies
@@ -179,6 +181,8 @@ cd C:\My-Image-Gen-Pipeline
 .\scripts\install-first-time.ps1
 .\scripts\launch.ps1
 ```
+
+If Stability Matrix is not already present, `install-first-time.ps1` now downloads the latest Windows release, launches it, and pauses while you install the `ComfyUI` package from inside Stability Matrix. Once the ComfyUI package folder appears, setup continues automatically.
 
 ## Notes
 
